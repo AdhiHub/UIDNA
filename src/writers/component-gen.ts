@@ -1,5 +1,7 @@
 import { DesignProfile, GeneratedComponent, ComponentCategory } from '../types';
 
+const btnColor = (token: any, fallback: string) => token?.hex || fallback;
+
 export function generateComponents(profile: DesignProfile, framework: 'react' | 'vue' | 'html' = 'react'): GeneratedComponent[] {
   const components: GeneratedComponent[] = [];
 
@@ -13,8 +15,6 @@ export function generateComponents(profile: DesignProfile, framework: 'react' | 
   const primaryFont = profile.typography.find(t => t.role === 'body')?.fontFamily || 'sans-serif';
   const borderRadius = profile.borderRadius.filter(r => !r.includes('9999'));
   const radius = borderRadius[Math.floor(borderRadius.length / 2)] || '8px';
-
-  const btnColor = (token: any, fallback: string) => token?.hex || fallback;
 
   components.push(generateButton(profile, accent, textPrimary, border, spacing, primaryFont, radius, framework));
   components.push(generateCard(profile, surface, bg, border, textPrimary, textMuted, spacing, primaryFont, radius, framework));
